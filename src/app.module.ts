@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AlertConverterService } from './alert-converter/alert-converter.service';
 
 @Module({
-  imports: [],
+  imports: [ AlertConverterService ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AlertConverterService],
 })
 export class AppModule {}

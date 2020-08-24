@@ -30,6 +30,8 @@ Service to receive and convert Alerts from the Prometheus Alertmanager and conve
 
 Port : localhost:3900
 
+At /get-sample you receive an Array of example LogMessages with are converted from sample-alert.json.
+
 ## Installation
 
 ```bash
