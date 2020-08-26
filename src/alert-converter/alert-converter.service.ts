@@ -8,7 +8,7 @@ export class AlertConverterService {
     /**
      * Takes Alert in correct JSON Format and converts into LogMessage Array.
      * 
-     * 
+     * TODO: needs error handling 
      * @param alertJSON the Alert in the Format: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
      */
     public alertToLogMessages(alertJSON): LogMessageFormat[] {
@@ -26,9 +26,9 @@ export class AlertConverterService {
                 const log: LogMessageFormat = {
                     type: LogType.CPU,
                     time: date.getTime(),
-                    source: alert.generatorURL,
+                    source: null, //TODO: Define source
                     detector: 'Prometheus',
-                    message: alert.labels.custom,
+                    message: alert.annotations.description,
                     data: {
                         cpuUtilization: 0,
                     },

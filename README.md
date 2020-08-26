@@ -26,17 +26,33 @@
 
 ## Description
 
-Service to receive and convert Alerts from the Prometheus Alertmanager and convert into own LogFormat.
+Service to receive and convert Alerts from the Prometheus Alertmanager and convert into own LogFormat. To use this Service install Prometheus, Alertmanager and Windows-Exporter
+and replace the config with the one in this Repository. 
 
 Port : localhost:3900
 
+[GET]
+
 At /get-sample you receive an Array of example LogMessages with are converted from sample-alert.json.
 
+[POST]
+
+At /post-alerts you can post a Alert in the format of the Alertmanager, it will be converted into a LogMessage and send to the Queue.
+
+
 ## Installation
+### Installing the local Repository:
 
 ```bash
 $ npm install
 ```
+### Install Prometheus, Alertmanager and Windows-Exporter:
+
+Download Prometheus and Alertmanager from https://prometheus.io/download/
+
+and Windows-Exporter from: https://github.com/prometheus-community/windows_exporter/releases
+
+then replace the prometheus.yml and alert-manager.yml with the ones of this Repository and add the rule.yml to your prometheus folder.
 
 ## Running the app
 
@@ -50,6 +66,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
 
 ## Test
 

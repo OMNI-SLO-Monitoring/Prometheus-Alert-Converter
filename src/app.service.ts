@@ -41,4 +41,22 @@ export class AppService {
     });
     await producer.disconnect();
   }
+
+  /**
+   * Converts the Alerts into LogMessages and sends them into the Queue.
+   * @param alert the alert to convert and send into the queue.
+   */
+  async sendConvertedLogs(alert): Promise<any>{
+  let messages: LogMessageFormat[] = this.convertAlertToLogMessages(alert);
+    
+    messages.forEach(element => {
+      //TODO: needs error handling 
+      console.log("Send to Queue: " + element);      
+      this.sendLogMessage(element);
+    });
+    
+    return new Promise((res, rej) => {
+      res("Conversion complete, send LogMessages to Queue");
+    });
+  }
 }

@@ -15,10 +15,10 @@ describe('AppService', () => {
 
     const log: LogMessageFormat = {
         type: LogType.CPU,
-        time: undefined,
-        source: "http://localhost:3000",
+        time: 1533282746739,
+        source: null,
         detector: 'Prometheus',
-        message: "test",
+        message: "Expected CPU utilization < 80% , got 85 %for http://localhost:3000",
         data: {
             cpuUtilization: 0,
         },

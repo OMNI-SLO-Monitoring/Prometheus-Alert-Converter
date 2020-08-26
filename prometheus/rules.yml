@@ -1,11 +1,11 @@
 groups:
 - name: cpu
-rules:
+  rules:
 
-#Alert for CPU load being over 80% for 5ms
+#Alert for CPU load being over 80% for 3 minutes
   - alert: HostHighCpuLoad
-    expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-    for: 5m
+    expr: 100 - (avg by (instance) (irate(windows_cpu_time_total{mode="idle"}[1m])) * 100) > 80
+    for: 3m
     labels:
       severity: warning
     annotations:
