@@ -1,0 +1,29 @@
+{
+    "status": "firing",
+    "externalURL": "localhost:8080",
+    "alerts": [
+      { "status": "firing",
+        "labels": {
+          "alertname": "alert 1",
+          "instance": "Database-Service",
+          "custom": "test"
+        },
+        "annotations": {
+          "summary": "Database-Service CPU thresh hold exceed ",
+          "description": "Expected CPU utilization < 80% , got 85 %for http://localhost:3000",
+          "severity": "major"
+        },
+        "startsAt": "2018-08-03T09:52:26.739266876+02:00",
+        "generatorURL": "http://localhost:3000"
+      },
+      { "status": "resolved",
+        "labels": {
+          "alertname": "alert 2",
+          "instance": "Price-Service"
+        },
+        "annotations": {
+          "summary": "Price-Service is OK"
+        }
+      }
+    ]
+  }

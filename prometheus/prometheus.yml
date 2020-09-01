@@ -1,0 +1,30 @@
+# my global config
+global:
+  scrape_interval:     30s
+  scrape_timeout:      5s
+  evaluation_interval: 30s
+ 
+rule_files:
+- "rules.yml"
+
+alerting:
+  alertmanagers:
+   - static_configs:
+     - targets:
+       # Alertmanager's default port is 9093
+       - localhost:9093
+
+# A list of scrape configurations that specifies a set of
+# targets and parameters describing how to scrape them.
+scrape_configs:
+ - job_name: 'prometheus'   
+   scrape_interval: 6s
+   static_configs:
+     - targets: ['localhost:9090', 'localhost:9182']
+ - job_name: 'alert_manager'   
+   scrape_interval: 6s
+   static_configs:
+     - targets:
+       - localhost:9093       
+ 
+      
