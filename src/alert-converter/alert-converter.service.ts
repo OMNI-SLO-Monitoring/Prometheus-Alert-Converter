@@ -1,6 +1,6 @@
 import { LogMessageFormat, LogType } from 'logging-format';
 /**
- * Class for Converting a Alert into a LogMessage. 
+ * Class for Converting an Alert into a LogMessage. 
  * TODO: Make things more generic
  */
 export class AlertConverterService {
@@ -9,7 +9,8 @@ export class AlertConverterService {
      * Takes Alert in correct JSON Format and converts into LogMessage Array.
      * 
      * TODO: needs error handling 
-     * @param alertJSON the Alert in the Format: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
+     * @param alertJSON the Alert in the Format: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config.
+     * @returns an  Array of LogMessages.
      */
     public alertToLogMessages(alertJSON): LogMessageFormat[] {
         let messages: LogMessageFormat[] = [];
@@ -22,7 +23,7 @@ export class AlertConverterService {
             //tests if sub-alert is still relevant, then creates a LogMessage
             if (alertStatus == "firing") {
 
-                const date = new Date(alert.startsAt);                
+                const date = new Date(alert.startsAt);
                 const log: LogMessageFormat = {
                     type: LogType.CPU,
                     time: date.getTime(),

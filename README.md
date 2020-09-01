@@ -26,8 +26,7 @@
 
 ## Description
 
-Service to receive and convert Alerts from the Prometheus Alertmanager and convert into own LogFormat. To use this Service install Prometheus, Alertmanager and Windows-Exporter
-and replace the config with the one in this Repository. 
+Service to receive Alerts from the Prometheus Alertmanager and convert into own [LogMessageFormat](https://github.com/ccims/logging-message-format). This Service requires Prometheus, Alertmanager and Windows-Exporter, see section 'Installation' for further details.
 
 Port : localhost:3900
 
@@ -52,7 +51,7 @@ Download Prometheus and Alertmanager from https://prometheus.io/download/
 
 and Windows-Exporter from: https://github.com/prometheus-community/windows_exporter/releases
 
-then replace the prometheus.yml and alert-manager.yml with the ones of this Repository and add the rule.yml to your prometheus folder.
+then replace the prometheus.yml and alert-manager.yml with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/SLADIM-158/prometheus) and add the rule.yml to your prometheus folder.
 
 ## Running the app
 

@@ -16,7 +16,7 @@
         "startsAt": "2018-08-03T09:52:26.739266876+02:00",
         "generatorURL": "http://localhost:3000"
       },
-      { "status": "firing",
+      { "status": "resolved",
         "labels": {
           "alertname": "alert 2",
           "instance": "Price-Service"
