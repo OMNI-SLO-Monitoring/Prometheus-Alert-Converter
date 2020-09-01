@@ -10,7 +10,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   /**
-   * Example Request to Test rather the Sample-Alerts.json File can be converted into LogMessages.
+   * Example Request to Test whether the Sample-Alerts.json File can be converted into LogMessages.
    * @returns a resolved Promise containing the converted LogMessages.
    */
   @Get('/get-sample')

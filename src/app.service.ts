@@ -12,7 +12,7 @@ const producer = kafka.producer();
 
 
 /**
- * Services to convert a Alert into LogMessages and send them in the Kafka Queue.
+ * Services to convert an Alert into LogMessages and send them to the Kafka Queue.
  */
 @Injectable()
 export class AppService {
