@@ -14,11 +14,11 @@ describe('AppService', () => {
     const log: LogMessageFormat = {
         type: LogType.CPU,
         time: 1533282746739,
-        source: null,
-        detector: 'Prometheus',
-        message: "Expected CPU utilization < 80% , got 85 %for http://localhost:3000",
+        source: "http://localhost:9182/metrics",
+        detector: "http://localhost:9090/",
+        message: "CPU load is > 80%\n  VALUE = 33.8872230551391\n LABELS: map[instance:localhost:9182]",
         data: {
-            cpuUtilization: 0,
+            cpuUtilization: 33,
         },
     };
 

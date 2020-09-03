@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { LogMessageFormat } from "logging-format";
 import { AlertConverterService } from './alert-converter/alert-converter.service';
+import { ConfigService } from '@nestjs/config';
 const { Kafka } = require('kafkajs');
 
 //This services sends the LogMessages to the Queue and the issue-creator consumes them.
 const kafka = new Kafka({
   clientId: 'prometheus-alert-converter',
-  brokers: ['localhost:9092']
+  brokers: [new ConfigService().get<string>("KAFKA_URL", "localhost:9092")]
 });
 const producer = kafka.producer();
 
@@ -19,7 +20,7 @@ export class AppService {
 
   constructor(
     private alertConverter: AlertConverterService,
-  ) { }
+  ) { this.alertConverter = new AlertConverterService(new ConfigService)}
 
   /**
    * Takes Alert in correct JSON Format and converts into LogMessage Array.
@@ -51,7 +52,7 @@ export class AppService {
    * Converts the Alerts into LogMessages and sends them into the Queue.
    * 
    * @param alert the alert to convert and send into the queue.
-   * @returns A resolved Promise. 
+   * @returns A resolved Promise with text: "Conversion complete, send LogMessages to Queue". 
    */
   async sendConvertedLogs(alert): Promise<any> {
     let messages: LogMessageFormat[] = this.convertAlertToLogMessages(alert);

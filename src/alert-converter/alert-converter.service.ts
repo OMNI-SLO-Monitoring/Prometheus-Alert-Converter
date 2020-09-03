@@ -1,16 +1,12 @@
 import { ConfigService } from '@nestjs/config';
 import { LogMessageFormat, LogType } from 'logging-format';
 /**
- * Class for Converting an Alert into a LogMessage. 
- * TODO: Make things more generic
+ * Class for Converting an Alert into a LogMessage.  * 
  */
 export class AlertConverterService {
     prometheusUrl: string;
     windowsExporterUrl: string;
-
-
-
-    constructor(private readonly configService: ConfigService) {
+    constructor(private configService: ConfigService) {
     }
 
     /**
@@ -41,7 +37,8 @@ export class AlertConverterService {
 
                 const date = new Date(alert.startsAt);
                 let log: LogMessageFormat;
-
+                
+                //check for correct LogType
                 switch (this.getLogType(alert.labels.alertname)) {
                     case LogType.CPU:
                         log = {
@@ -56,12 +53,47 @@ export class AlertConverterService {
                         };
                         break;
 
+                    case LogType.TIMEOUT:
+                        log = {
+                            type: LogType.TIMEOUT,
+                            time: date.getTime(),
+                            source: this.windowsExporterUrl,
+                            detector: this.prometheusUrl,
+                            message: alert.annotations.description,
+                            data: {
+                                timeoutDuration: 0 //Can be specified when an timeout rule exists.
+                            },
+                        };
+                        break;
+
+                    case LogType.ERROR:
+                        log = {
+                            type: LogType.ERROR,
+                            time: date.getTime(),
+                            source: this.windowsExporterUrl,
+                            detector: this.prometheusUrl,
+                            message: alert.annotations.description,
+                            data: null,//Can be specified when an timeout rule exists.
+                        };
+                        break;
+
+                    case LogType.CB_OPEN:
+                        log = {
+                            type: LogType.CB_OPEN,
+                            time: date.getTime(),
+                            source: this.windowsExporterUrl,
+                            detector: this.prometheusUrl,
+                            message: alert.annotations.description,
+                            data: null, //Can be specified when an timeout rule exists.
+                        };
+                        break;
+
                     default:
                         log = {
                             type: null,
                             time: date.getTime(),
-                            source: this.configService.get<string>("WINDOWS_EXPORTER_URL", "http://localhost:9182/metrics"),
-                            detector: this.configService.get<string>("PROMETHEUS_URL", "http://localhost:9090/"),
+                            source: this.windowsExporterUrl,
+                            detector: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: null,
                         };
@@ -109,6 +141,5 @@ export class AlertConverterService {
             return 0;
         }
     }
-
 
 }
