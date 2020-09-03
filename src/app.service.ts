@@ -58,7 +58,7 @@ export class AppService {
 
     messages.forEach(element => {
       //TODO: needs error handling 
-      console.log("Send to Queue: " + element);
+      console.log("Send to Queue: \n " + JSON.stringify(element));
       this.sendLogMessage(element);
     });
 
