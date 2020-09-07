@@ -11,13 +11,14 @@ export class AlertConverterService {
 
     /**
      * Takes Alert in correct JSON Format and converts into LogMessage Array. 
+     * 
      * If the LogType should be included, the description of a rule in rules.yml needs to contain the LogType.
      * If Values shall be retrievable the rule needs to contain the field 'VALUE' in the description. 
      * 
      * TODO: needs error handling 
      * 
      * @param alertJSON the Alert in the Format: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config.
-     * @returns an  Array of LogMessages.
+     * @returns an Array of LogMessages.
      */
     public alertToLogMessages(alertJSON): LogMessageFormat[] {
         let messages: LogMessageFormat[] = [];
@@ -61,7 +62,7 @@ export class AlertConverterService {
                             detector: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: {
-                                timeoutDuration: 0 //Can be specified when an timeout rule exists.
+                                timeoutDuration: 0 //Can be specified when a timeout rule exists.
                             },
                         };
                         break;
@@ -73,7 +74,7 @@ export class AlertConverterService {
                             source: this.windowsExporterUrl,
                             detector: this.prometheusUrl,
                             message: alert.annotations.description,
-                            data: null,//Can be specified when an timeout rule exists.
+                            data: null,//Can be specified when a timeout rule exists.
                         };
                         break;
 
@@ -128,14 +129,16 @@ export class AlertConverterService {
     /**
      * Searches a String for CpuLoad data. 
      * 
-     * @param stringContainingData the String containing the CpuLoad.
+     * @param stringContainingData the String containing the CpuLoad. Needs to contain:
+     * '... VALUE = ....' to correctly get the CPU load.
      * @returns the value or zero if none was found.
      */
     private getCPULoadOfString(stringContainingData: string): number {
 
         if (stringContainingData.search('VALUE') >= 0) {
-            let start = stringContainingData.search('VALUE') + 8;
-            let end = start + 7;
+            
+            let start = stringContainingData.search('VALUE') + 8;//returns where the Value starts in the string
+            let end = start + 7;//returns where the Value ends in the string
             return parseInt(stringContainingData.substring(start, end));
         } else {
             return 0;

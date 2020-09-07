@@ -31,14 +31,4 @@ groups:
     annotations:
       summary: "Prometheus rule evaluation failures (instance {{ $labels.instance }})"
       description: "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}" 
-
       
- #Alert for Rule evaluation is failing     
-  - alert: HostUnusualDiskReadRate
-    expr: sum by (instance) (irate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Host unusual disk read rate (instance {{ $labels.instance }})"
-      description: "Disk is probably reading too much data (> 50 MB/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}" 

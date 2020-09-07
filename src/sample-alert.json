@@ -22,8 +22,38 @@
           "instance": "Price-Service"
         },
         "annotations": {
-          "summary": "Price-Service is OK"
+          "description": "Price-Service is OK"
         }
+      },      
+      { "status": "firing",
+        "labels": {
+          "alertname": "TimeOut",
+          "instance": "Price-Service"
+        },
+        "annotations": {
+          "description": "Price-Service not reachable for 5 seconds"
+        },
+        "startsAt": "2018-08-03T09:52:26.739266876+02:00"
+      },
+      { "status": "firing",
+        "labels": {
+          "alertname": "Error",
+          "instance": "Price-Service"
+        },
+        "annotations": {
+          "description": "Incorrect response from Price-Service"
+        },
+        "startsAt": "2018-08-03T09:52:26.739266876+02:00"
+      },
+      { "status": "firing",
+        "labels": {
+          "alertname": "cbOpen",
+          "instance": "Price-Service"
+        },
+        "annotations": {
+          "description": "Circuit-Breaker open at Price-Service"
+        },
+        "startsAt": "2018-08-03T09:52:26.739266876+02:00"
       }
     ]
   }
