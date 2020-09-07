@@ -11,3 +11,24 @@ groups:
     annotations:
       summary: "Host high CPU load (instance {{ $labels.instance }})"
       description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Alert for Alertmanager is failing
+  - alert: PrometheusAlertmanagerNotificationFailing
+    expr: rate(alertmanager_notifications_failed_total[1m]) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Prometheus AlertManager notification failing (instance {{ $labels.instance }})"
+      description: "Alertmanager is failing sending notifications\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Alert for Rule evaluation is failing
+  - alert: PrometheusRuleEvaluationFailures
+    expr: increase(prometheus_rule_evaluation_failures_total[3m]) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Prometheus rule evaluation failures (instance {{ $labels.instance }})"
+      description: "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}" 
+      

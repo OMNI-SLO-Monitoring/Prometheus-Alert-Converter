@@ -51,7 +51,7 @@ Download Prometheus and Alertmanager from https://prometheus.io/download/
 
 and Windows-Exporter from: https://github.com/prometheus-community/windows_exporter/releases
 
-then replace the prometheus.yml and alert-manager.yml with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/SLADIM-158/prometheus) and add the rule.yml to your prometheus folder.
+then replace the prometheus.yml and alert-manager.yml with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/dev/prometheus) and add the rule.yml to your prometheus folder.
 
 ## Running the app
 

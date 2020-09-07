@@ -11,19 +11,45 @@ import * as data from './sample-alert.json';
 describe('AppService', () => {
     let appService: AppService;
 
-    const log: LogMessageFormat = {
+    const log0: LogMessageFormat = {
         type: LogType.CPU,
         time: 1533282746739,
-        source: null,
-        detector: 'Prometheus',
-        message: "Expected CPU utilization < 80% , got 85 %for http://localhost:3000",
+        source: "http://localhost:9182/metrics",
+        detector: "http://localhost:9090/",
+        message: "CPU load is > 80%\n  VALUE = 33.8872230551391\n LABELS: map[instance:localhost:9182]",
         data: {
-            cpuUtilization: 0,
+            cpuUtilization: 33,
         },
     };
 
-    let logs: LogMessageFormat[] = [];
-    logs.push(log);
+    const log1: LogMessageFormat = {
+        type: LogType.TIMEOUT,
+        time: 1533282746739,
+        source: "http://localhost:9182/metrics",
+        detector: "http://localhost:9090/",
+        message: "Price-Service not reachable for 5 seconds",
+        data: {
+            timeoutDuration: 0,
+        },
+    };
+
+    const log2: LogMessageFormat = {
+        type: LogType.ERROR,
+        time: 1533282746739,
+        source: "http://localhost:9182/metrics",
+        detector: "http://localhost:9090/",
+        message: "Incorrect response from Price-Service",
+        data: null,
+    };
+
+    const log3: LogMessageFormat = {
+        type: LogType.CB_OPEN,
+        time: 1533282746739,
+        source: "http://localhost:9182/metrics",
+        detector: "http://localhost:9090/",
+        message: "Circuit-Breaker open at Price-Service",
+        data: null,
+    };
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
@@ -35,9 +61,28 @@ describe('AppService', () => {
         appService = app.get<AppService>(AppService);
     });
 
-    describe('Convert Test', () => {
+    describe('Convert HighCpuLoad-Alert Test', () => {
         it('should convert a Alert in a LogFormat object', () => {
-            expect(appService.convertAlertToLogMessages(data)).toMatchObject(logs);
+            expect(appService.convertAlertToLogMessages(data)[0]).toMatchObject(log0);
         });
     });
+
+    describe('Convert TimeOut-Alert Test', () => {
+        it('should convert a Alert in a LogFormat object', () => {
+            expect(appService.convertAlertToLogMessages(data)[1]).toMatchObject(log1);
+        });
+    });
+
+    describe('Convert Error-Alert Test', () => {
+        it('should convert a Alert in a LogFormat object', () => {
+            expect(appService.convertAlertToLogMessages(data)[2]).toMatchObject(log2);
+        });
+    });
+
+    describe('Convert CbOpen-Alert Test', () => {
+        it('should convert a Alert in a LogFormat object', () => {
+            expect(appService.convertAlertToLogMessages(data)[3]).toMatchObject(log3);
+        });
+    });
+
 });

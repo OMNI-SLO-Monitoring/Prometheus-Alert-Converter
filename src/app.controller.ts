@@ -24,7 +24,7 @@ export class AppController {
    * For more details of the Queue see: https://ccims.github.io/overview-and-documentation/error-response-monitor.
    * 
    * @param alerts the Alerts to convert.
-   * @returns A resolved Promise.
+   * @returns A resolved Promise with text: "Conversion complete, send LogMessages to Queue". 
    */
   @Post('post-alerts')
   addAlertsToConvert(@Body() alerts): Promise<any>  {
