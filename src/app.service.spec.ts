@@ -14,8 +14,8 @@ describe('AppService', () => {
     const log0: LogMessageFormat = {
         type: LogType.CPU,
         time: 1533282746739,
-        source: "http://localhost:9182/metrics",
-        detector: "http://localhost:9090/",
+        sourceUrl: "http://localhost:9182/metrics",
+        detectorUrl: "http://localhost:9090/",
         message: "CPU load is > 80%\n  VALUE = 33.8872230551391\n LABELS: map[instance:localhost:9182]",
         data: {
             cpuUtilization: 33,
@@ -25,8 +25,8 @@ describe('AppService', () => {
     const log1: LogMessageFormat = {
         type: LogType.TIMEOUT,
         time: 1533282746739,
-        source: "http://localhost:9182/metrics",
-        detector: "http://localhost:9090/",
+        sourceUrl: "http://localhost:9182/metrics",
+        detectorUrl: "http://localhost:9090/",
         message: "Price-Service not reachable for 5 seconds",
         data: {
             timeoutDuration: 0,
@@ -36,8 +36,8 @@ describe('AppService', () => {
     const log2: LogMessageFormat = {
         type: LogType.ERROR,
         time: 1533282746739,
-        source: "http://localhost:9182/metrics",
-        detector: "http://localhost:9090/",
+        sourceUrl: "http://localhost:9182/metrics",
+        detectorUrl: "http://localhost:9090/",
         message: "Incorrect response from Price-Service",
         data: null,
     };
@@ -45,8 +45,8 @@ describe('AppService', () => {
     const log3: LogMessageFormat = {
         type: LogType.CB_OPEN,
         time: 1533282746739,
-        source: "http://localhost:9182/metrics",
-        detector: "http://localhost:9090/",
+        sourceUrl: "http://localhost:9182/metrics",
+        detectorUrl: "http://localhost:9090/",
         message: "Circuit-Breaker open at Price-Service",
         data: null,
     };

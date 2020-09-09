@@ -45,8 +45,8 @@ export class AlertConverterService {
                         log = {
                             type: LogType.CPU,
                             time: date.getTime(),
-                            source: this.windowsExporterUrl,
-                            detector: this.prometheusUrl,
+                            sourceUrl: this.windowsExporterUrl,
+                            detectorUrl: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: {
                                 cpuUtilization: this.getCPULoadOfString(alert.annotations.description),
@@ -58,8 +58,8 @@ export class AlertConverterService {
                         log = {
                             type: LogType.TIMEOUT,
                             time: date.getTime(),
-                            source: this.windowsExporterUrl,
-                            detector: this.prometheusUrl,
+                            sourceUrl: this.windowsExporterUrl,
+                            detectorUrl: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: {
                                 timeoutDuration: 0 //Can be specified when a timeout rule exists.
@@ -71,8 +71,8 @@ export class AlertConverterService {
                         log = {
                             type: LogType.ERROR,
                             time: date.getTime(),
-                            source: this.windowsExporterUrl,
-                            detector: this.prometheusUrl,
+                            sourceUrl: this.windowsExporterUrl,
+                            detectorUrl: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: null,//Can be specified when a timeout rule exists.
                         };
@@ -82,8 +82,8 @@ export class AlertConverterService {
                         log = {
                             type: LogType.CB_OPEN,
                             time: date.getTime(),
-                            source: this.windowsExporterUrl,
-                            detector: this.prometheusUrl,
+                            sourceUrl: this.windowsExporterUrl,
+                            detectorUrl: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: null, //Can be specified when an timeout rule exists.
                         };
@@ -93,8 +93,8 @@ export class AlertConverterService {
                         log = {
                             type: null,
                             time: date.getTime(),
-                            source: this.windowsExporterUrl,
-                            detector: this.prometheusUrl,
+                            sourceUrl: this.windowsExporterUrl,
+                            detectorUrl: this.prometheusUrl,
                             message: alert.annotations.description,
                             data: null,
                         };
