@@ -26,7 +26,9 @@
 
 ## Description
 
-Service to receive Alerts from the Prometheus Alertmanager and convert into own [LogMessageFormat](https://github.com/ccims/logging-message-format). This Service requires Prometheus, Alertmanager and Windows-Exporter, see section 'Installation' for further details.
+The Service receives Alerts from the Prometheus Alertmanager and converts then into logs of the [LogMessageFormat](https://github.com/ccims/logging-message-format).
+These logs are then appended into the Kafka Queue, included in the Error-Response Monitor, for retrieval. 
+This Service requires the Prometheus Client, the Prometheus Alertmanager, the Windows-Exporter and the Kafka Queue of the Error-Response Monitor to fully function. See section 'Installation' for further details.
 
 Port : localhost:3900
 
@@ -52,6 +54,11 @@ Download Prometheus and Alertmanager from https://prometheus.io/download/
 and Windows-Exporter from: https://github.com/prometheus-community/windows_exporter/releases
 
 then replace the prometheus.yml and alert-manager.yml with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/dev/prometheus) and add the rule.yml to your prometheus folder.
+
+### Set Up Kafka Queue 
+
+See [Error-Response Monitor Documentation](https://github.com/ccims/error-response-monitoring-service/blob/dev/payment-service-monitor/README.md)
+
 
 ## Running the app
 
