@@ -10,7 +10,7 @@
         },
         "annotations": {
           "summary": "Database-Service CPU thresh hold exceed ",
-          "description": "CPU load is > 80%\n  VALUE = 33.8872230551391\n LABELS: map[instance:localhost:9182]",
+          "description": "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"VALUE\" : 33.8872230551391 }",
           "severity": "major"
         },
         "startsAt": "2018-08-03T09:52:26.739266876+02:00",

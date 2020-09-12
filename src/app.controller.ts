@@ -15,8 +15,14 @@ export class AppController {
    * @returns a resolved Promise containing the converted LogMessages.
    */
   @Get('/get-sample')
-  async respondToRequest(): Promise<any> {
+  async convertSampleAlerts(): Promise<any> {
     return this.appService.convertAlertToLogMessages(data);
+  }
+
+
+  @Get('/send-sample')
+  async respondToRequest(): Promise<any> {
+    return this.appService.convertAndSendAlert(data);
   }
 
   /**
@@ -28,7 +34,7 @@ export class AppController {
    */
   @Post('post-alerts')
   addAlertsToConvert(@Body() alerts): Promise<any>  {
-    return this.appService.sendConvertedLogs(alerts);
+    return this.appService.convertAndSendAlert(alerts);
   }
 
 }

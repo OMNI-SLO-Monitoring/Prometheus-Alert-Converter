@@ -38,7 +38,11 @@ export class AppService {
    * @param logMessage log in the LogMessageFormat to be send to the issue creator
    */
   async sendLogMessage(logMessage: LogMessageFormat) {
-    await producer.connect();
+    try {
+      await producer.connect();
+    } catch (e) {
+      throw new Error("Error while sending LogMessage to Queue");      
+    }    
     await producer.send({
       topic: 'logs',
       messages: [{
@@ -49,18 +53,23 @@ export class AppService {
   }
 
   /**
-   * Converts the Alerts into LogMessages and sends them into the Queue.
+   * Converts the Alert into LogMessages and sends them into the Queue.
    * 
    * @param alert the alert to convert and send into the queue.
    * @returns A resolved Promise with text: "Conversion complete, send LogMessages to Queue". 
    */
-  async sendConvertedLogs(alert): Promise<any> {
+  async convertAndSendAlert(alert): Promise<any> {
     let messages: LogMessageFormat[] = this.convertAlertToLogMessages(alert);
 
-    messages.forEach(element => {
-      //TODO: needs error handling 
+    messages.forEach(async element => {      
       console.log("Send to Queue: \n " + JSON.stringify(element));
-      this.sendLogMessage(element);
+      try{
+      await this.sendLogMessage(element);
+      } catch(error) {
+        return new Promise((res, rej) => {
+          rej("Error while sending Logs");
+        });
+      }      
     });
 
     return new Promise((res, rej) => {

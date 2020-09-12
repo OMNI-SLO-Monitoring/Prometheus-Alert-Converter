@@ -16,9 +16,9 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "CPU load is > 80%\n  VALUE = 33.8872230551391\n LABELS: map[instance:localhost:9182]",
+        message: "CPU load is > 80%",
         data: {
-            cpuUtilization: 33,
+            cpuUtilization: 33.8872230551391,
         },
     };
 
@@ -27,7 +27,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "Price-Service not reachable for 5 seconds",
+        message: "No description found",
         data: {
             timeoutDuration: 0,
         },
@@ -38,7 +38,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "Incorrect response from Price-Service",
+        message: "No description found",
         data: null,
     };
 
@@ -47,7 +47,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "Circuit-Breaker open at Price-Service",
+        message: "No description found",
         data: null,
     };
 
