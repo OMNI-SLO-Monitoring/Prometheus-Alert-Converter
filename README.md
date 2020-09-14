@@ -30,16 +30,7 @@ The Service receives Alerts from the Prometheus Alertmanager and converts then i
 These logs are then appended into the Kafka Queue, included in the Error-Response Monitor, for retrieval. 
 This Service requires the Prometheus Client, the Prometheus Alertmanager, the Windows-Exporter and the Kafka Queue of the Error-Response Monitor to fully function. See section 'Installation' for further details.
 
-Port : localhost:3900
-
-[GET]
-
-At /get-sample you receive an Array of example LogMessages with are converted from sample-alert.json.
-
-[POST]
-
-At /post-alerts you can post a Alert in the format of the Alertmanager, it will be converted into a LogMessage and send to the Queue.
-
+Port : `http://localhost:3900`
 
 ## Installation
 ### Installing the local Repository:
@@ -73,6 +64,41 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## How to use
+
+### Requests
+
+These Requests are useable: 
+
+[GET]
+
+At `http://localhost:3900/get-sample` you receive an Array of example LogMessages converted of sample-alert.json.
+
+At `http://localhost:3900/send-sample` you receive a resolved Message if the Alerts from sample-alert.json are converted correctly and send to the Queue.
+
+[POST]
+
+At `http://localhost:3900/post-alerts` you can post an Alert in the format given by the [Alertmanager-Webhookformat](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config) , it will be converted into a LogMessage and send to the Kafka Queue.
+
+### Alert Rules
+
+The Promethues Alert Rules need to have a JSON-String as the Description. 
+Example Rule:
+```
+#Alert for CPU load being over 80% for 3 minutes
+  - alert: HostHighCpuLoad
+    expr: 100 - (avg by (instance) (irate(windows_cpu_time_total{mode="idle"}[1m])) * 100) > 80
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Host high CPU load (instance {{ $labels.instance }})"
+      description: "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"LogType\" : \"cpu\" \n , \"VALUE\" : {{$value}} }"
+```
+The key `LogType` of the JSON-String is necessary to create a LogMessage of fitting [LogType](https://github.com/ccims/logging-message-format/blob/dev/src/log-type.ts). The values can be `cpu`, `error`, `timeout` or `cbopen`.
+
+Optional a Message can be declared in the key `descriptionMessage` and if the Rule uses values from windows-exporter use <br>
+`\"VALUE\" : {{$value}}` to retrieve the value. 
 
 ## Test
 
@@ -87,16 +113,4 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
