@@ -10,7 +10,7 @@
         },
         "annotations": {
           "summary": "Database-Service CPU thresh hold exceed ",
-          "description": "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"VALUE\" : 33.8872230551391 }",
+          "description": "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"LogType\" : \"cpu\" \n , \"VALUE\" : 33.8872230551391 }",
           "severity": "major"
         },
         "startsAt": "2018-08-03T09:52:26.739266876+02:00",
@@ -31,7 +31,7 @@
           "instance": "Price-Service"
         },
         "annotations": {
-          "description": "Price-Service not reachable for 5 seconds"
+          "description": "{ \"descriptionMessage\" : \"Price Service not reachable for 5 Minutes\" \n , \"LogType\" : \"timeout\" }"
         },
         "startsAt": "2018-08-03T09:52:26.739266876+02:00"
       },
@@ -41,7 +41,7 @@
           "instance": "Price-Service"
         },
         "annotations": {
-          "description": "Incorrect response from Price-Service"
+          "description": "{ \"descriptionMessage\" : \"Error-Response from PriceService\" \n , \"LogType\" : \"error\" }"
         },
         "startsAt": "2018-08-03T09:52:26.739266876+02:00"
       },
@@ -51,7 +51,7 @@
           "instance": "Price-Service"
         },
         "annotations": {
-          "description": "Circuit-Breaker open at Price-Service"
+          "description": "{ \"dM\" : \"Circuit-Breaker open at Price-Service\" \n , \"LogType\" : \"cbopen\" }"
         },
         "startsAt": "2018-08-03T09:52:26.739266876+02:00"
       }

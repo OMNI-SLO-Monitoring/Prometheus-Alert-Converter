@@ -27,7 +27,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "No description found",
+        message: "Price Service not reachable for 5 Minutes",
         data: {
             timeoutDuration: 0,
         },
@@ -38,7 +38,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "No description found",
+        message: "Error-Response from PriceService",
         data: null,
     };
 
@@ -47,7 +47,7 @@ describe('AppService', () => {
         time: 1533282746739,
         sourceUrl: "http://localhost:9182/metrics",
         detectorUrl: "http://localhost:9090/",
-        message: "No description found",
+        message: "No Message found",
         data: null,
     };
 

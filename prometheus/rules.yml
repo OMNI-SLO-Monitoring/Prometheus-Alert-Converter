@@ -10,7 +10,7 @@ groups:
       severity: warning
     annotations:
       summary: "Host high CPU load (instance {{ $labels.instance }})"
-      description: "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"VALUE\" : {{$value}} }"
+      description: "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"LogType\" : \"cpu\" \n , \"VALUE\" : {{$value}} }"
 
 #Alert for Alertmanager is failing
   - alert: PrometheusAlertmanagerNotificationFailing
