@@ -72,7 +72,7 @@ These Requests are useable:
 
 [GET]
 
-At `http://localhost:3900/get-sample` you receive an Array of example LogMessages converted of sample-alert.json.
+At `http://localhost:3900/get-sample` you receive an Array of example LogMessages converted from sample-alert.json.
 
 At `http://localhost:3900/send-sample` you receive a resolved Message if the Alerts from sample-alert.json are converted correctly and send to the Queue.
 
@@ -82,7 +82,7 @@ At `http://localhost:3900/post-alerts` you can post an Alert in the format given
 
 ### Alert Rules
 
-The Promethues Alert Rules need to have a JSON-String as the Description. 
+The Prometheus Alert Rules need to have a JSON-String as the Description. 
 Example Rule:
 ```
 #Alert for CPU load being over 80% for 3 minutes

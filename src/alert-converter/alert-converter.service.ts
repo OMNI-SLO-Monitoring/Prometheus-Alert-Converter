@@ -155,13 +155,12 @@ export class AlertConverterService {
      * 
      * @param jsonStringWithMessage the JSON String containing the AlertMessage. Needs to contain:
      * key 'descriptionMessage' to correctly get the CPU load.
-     * @returns the Message as String or the String: 'No description found' if the message is not retrievable.
+     * @returns the Message as String or the String "No Message found" if the message is not retrievable.
      */
     private getDescriptionMessage(jsonStringWithMessage: string): string {
         var data;
         try {
             data = JSON.parse(jsonStringWithMessage);
-
         } catch (error) {
             return "No Message found";
         }

@@ -10,7 +10,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   /**
-   * Example Request to Test whether the Sample-Alerts.json File can be converted into LogMessages.   * 
+   * Example Request to Test whether the Sample-Alerts.json File can be converted into LogMessages.   
    * 
    * @returns a resolved Promise containing the converted LogMessages.
    */
@@ -19,7 +19,11 @@ export class AppController {
     return this.appService.convertAlertToLogMessages(data);
   }
 
-
+  /**
+   * Example Request for sending converted sample Alerts from Sample-Alerts.json to the Queue.
+   * 
+   * @returns a resolved Promise if the Alerts from sample-alert.json are converted correctly and send to the Queue.
+   */
   @Get('/send-sample')
   async respondToRequest(): Promise<any> {
     return this.appService.convertAndSendAlert(data);
