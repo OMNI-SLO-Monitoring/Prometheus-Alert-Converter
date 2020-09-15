@@ -84,7 +84,7 @@ At `http://localhost:3900/post-alerts` you can post an Alert in the format given
 
 ### Alert Rules
 
-The Prometheus Alert Rules (`rules.yml`) file has a "description" field. In here the Alert-Converter requires you to have a JSON-String in the following format. 
+The Prometheus Alert Rules (`rules.yml`) file has a "description" key. In here the Alert-Converter requires you to have a JSON-String in the following format. 
 
 ``` json
 {
@@ -93,7 +93,7 @@ The Prometheus Alert Rules (`rules.yml`) file has a "description" field. In here
   "VALUE": {{$value}}
 }
 ```
-The `LogType` field is required while `desriptionMessage` and `VALUE` are optional fields.
+The `LogType` key is required while `desriptionMessage` and `VALUE` are optional keys.
 The key `LogType` of the JSON-String is necessary to create a LogMessage of fitting [LogType](https://github.com/ccims/logging-message-format/blob/dev/src/log-type.ts). The values of `LogType` can be `cpu`, `error`, `timeout` or `cbopen`.
 
 Optionally a Message can be declared in the key `descriptionMessage` and if the Rule uses values from windows-exporter use <br>
