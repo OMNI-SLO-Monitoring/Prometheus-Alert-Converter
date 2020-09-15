@@ -26,9 +26,9 @@
 
 ## Description
 
-The Service receives Alerts from the Prometheus Alertmanager and converts then into logs of the [LogMessageFormat](https://github.com/ccims/logging-message-format).
+The Service receives Alerts from the Prometheus Alertmanager and converts them into logs of the [LogMessageFormat](https://github.com/ccims/logging-message-format).
 These logs are then appended into the Kafka Queue, included in the Error-Response Monitor, for retrieval. 
-This Service requires the Prometheus Client, the Prometheus Alertmanager, the Windows-Exporter and the Kafka Queue of the Error-Response Monitor to fully function. See section 'Installation' for further details.
+This Service requires the Kafka Queue of the Error-Response Monitor to fully function. The Prometheus Client, Alertmanager and the Windows-Exporter were used to create alerts in the given Prometheus alert format and further restrictions are made to this format. See section 'Installation' for further details.
 
 Port : `http://localhost:3900`
 
@@ -44,7 +44,9 @@ Download Prometheus and Alertmanager from https://prometheus.io/download/
 
 and Windows-Exporter from: https://github.com/prometheus-community/windows_exporter/releases
 
-then replace the prometheus.yml and alert-manager.yml with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/dev/prometheus) and add the rule.yml to your prometheus folder.
+then replace the prometheus.yml and alert-manager.yml (inside the folders where you installed the Prometheus Client and Alertmanager respectively) with the ones of [this Repository](https://github.com/ccims/Prometheus-Alert-Converter/tree/dev/prometheus) and add the rule.yml to your prometheus folder.
+
+Alternatively, the [Node-Exporter](https://github.com/prometheus/node_exporter) can be used to get system metrics from Linux devices. Note that our given `rules.yml` will **not** work with the Node-Exporter. You would have to define your own alert rules in that case. 
 
 ### Set Up Kafka Queue 
 
@@ -82,7 +84,23 @@ At `http://localhost:3900/post-alerts` you can post an Alert in the format given
 
 ### Alert Rules
 
-The Prometheus Alert Rules need to have a JSON-String as the Description. 
+The Prometheus Alert Rules (`rules.yml`) file has a "description" field. In here the Alert-Converter requires you to have a JSON-String in the following format. 
+
+``` json
+{
+  "descitpionMessage": "yourMessage",
+  "LogType": "cpu",
+  "VALUE": {{$value}}
+}
+```
+The `LogType` field is required while `desriptionMessage` and `VALUE` are optional fields.
+The key `LogType` of the JSON-String is necessary to create a LogMessage of fitting [LogType](https://github.com/ccims/logging-message-format/blob/dev/src/log-type.ts). The values of `LogType` can be `cpu`, `error`, `timeout` or `cbopen`.
+
+Optionally a Message can be declared in the key `descriptionMessage` and if the Rule uses values from windows-exporter use <br>
+`\"VALUE\" : {{$value}}` to retrieve the value. 
+
+This JSON object has to be converted into a String and placed into the `description` field of the `rules.yml` file.
+
 Example Rule:
 ```
 #Alert for CPU load being over 80% for 3 minutes
@@ -95,10 +113,7 @@ Example Rule:
       summary: "Host high CPU load (instance {{ $labels.instance }})"
       description: "{ \"descriptionMessage\" : \"CPU load is > 80%\" \n , \"LogType\" : \"cpu\" \n , \"VALUE\" : {{$value}} }"
 ```
-The key `LogType` of the JSON-String is necessary to create a LogMessage of fitting [LogType](https://github.com/ccims/logging-message-format/blob/dev/src/log-type.ts). The values can be `cpu`, `error`, `timeout` or `cbopen`.
-
-Optional a Message can be declared in the key `descriptionMessage` and if the Rule uses values from windows-exporter use <br>
-`\"VALUE\" : {{$value}}` to retrieve the value. 
+In the last line you can see the JSON-String as a value of the `description` field. 
 
 ## Test
 
